@@ -178,7 +178,7 @@ function App() {
                         </div>
                         <div className="flex space-x-2">
                           {array[0].map((player) => {
-                            return <p>{player}</p>;
+                            return <textarea>{player}</textarea>;
                           })}
                         </div>
                       </div>
