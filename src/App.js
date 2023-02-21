@@ -176,9 +176,9 @@ function App() {
                           <p>Team #{index}</p>
                           <p>Credit : {array[1]}</p>
                         </div>
-                        <div className="flex space-x-2">
+                        <div className="flex space-x-2 flex-wrap">
                           {array[0].map((player) => {
-                            return <textarea>{player}</textarea>;
+                            return <p>{player}</p>;
                           })}
                         </div>
                       </div>
