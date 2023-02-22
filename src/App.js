@@ -99,7 +99,7 @@ function App() {
           <div className="mb-3 sm:mt-10 w-[950px] bg-white border shadow-lg rounded-lg overflow-hidden px-2 py-5 sm:px-10 sm:py-10 ">
             <div className="w-full flex justify-center mb-10">
               <p className="font-medium text-2xl font-sans text-gray-400">
-                D11 calculator
+                Team Maker
               </p>
             </div>
             <div>
