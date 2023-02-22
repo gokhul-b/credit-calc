@@ -18,6 +18,11 @@ function App() {
     });
     setForms(updatedForms);
   };
+  const handleDeleteGroup = (formIndex) => {
+    const updatedForms = [...forms];
+    updatedForms.splice(formIndex, 1);
+    setForms(updatedForms);
+  };
 
   const handleAddFields = (formIndex) => {
     const updatedForms = [...forms];
@@ -142,13 +147,26 @@ function App() {
                     </div>
                   </div>
                 ))}
-                <button
-                  className=" mb-4 min-w-fit text-white bg-[#2d2d2d] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                  type="button"
-                  onClick={() => handleAddFields(formIndex)}
-                >
-                  Add Players
-                </button>
+                <div className="flex justify-between ">
+                  <div className="min-w-fit">
+                    <button
+                      className=" mb-4 min-w-fit text-white bg-[#2d2d2d] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs sm:text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                      type="button"
+                      onClick={() => handleAddFields(formIndex)}
+                    >
+                      Add Players
+                    </button>
+                  </div>
+                  <div className="min-w-fit">
+                    <button
+                      type="button"
+                      className=" mb-4 min-w-fit text-white bg-[#f34141] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs sm:text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                      onClick={() => handleDeleteGroup(formIndex)}
+                    >
+                      Delete Group
+                    </button>
+                  </div>
+                </div>
               </form>
             ))}
             <div className="flex space-x-4">
