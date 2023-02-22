@@ -26,10 +26,10 @@ function App() {
     setForms(updatedForms);
   };
 
-  const handleremovePlayer = (formIndex) => {
+  const handleremovePlayer = (formIndex, fieldIndex) => {
     const updatedForms = [...forms];
     const formFields = updatedForms[formIndex].formFields;
-    formFields.splice(formIndex, 1);
+    formFields.splice(fieldIndex, 1);
     setForms(updatedForms);
   };
 
