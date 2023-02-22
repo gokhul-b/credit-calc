@@ -3,7 +3,10 @@ export function findCombinations(
   conPlayer,
   min_credit,
   max_credit,
-  team_size
+  team_size,
+  teamAplayers,
+  teamBplayers,
+  game
 ) {
   function* combinations(arr, k) {
     for (let i = 0; i < arr.length; i++) {
@@ -53,6 +56,8 @@ export function findCombinations(
   let sfCount = 0;
   let pfCount = 0;
   let cCount = 0;
+  let aCount = 0;
+  let bCount = 0;
   let totTeams = 0;
   let teamWithRange = [];
 
@@ -63,6 +68,8 @@ export function findCombinations(
     sfCount = 0;
     pfCount = 0;
     cCount = 0;
+    aCount = 0;
+    bCount = 0;
 
     let flag = 0;
     for (let conPlayer of conPlayers) {
@@ -74,7 +81,7 @@ export function findCombinations(
       }
     }
 
-    if (flag === 1 && length === 5) {
+    if (flag === 1 && length === 5 && game === "Basketball") {
       for (let player of team) {
         if (group_members[0].includes(player)) {
           pgCount += 1;
@@ -91,13 +98,21 @@ export function findCombinations(
         if (group_members[4].includes(player)) {
           cCount += 1;
         }
+        if (teamAplayers.includes(player)) {
+          aCount += 1;
+        }
+        if (teamBplayers.includes(player)) {
+          bCount += 1;
+        }
       }
       if (
         pgCount > 0 &&
         sgCount > 0 &&
         sfCount > 0 &&
         pfCount > 0 &&
-        cCount > 0
+        cCount > 0 &&
+        aCount > 2 &&
+        bCount > 2
       ) {
         totTeams += 1;
         teamWithRange.push([
@@ -105,7 +120,7 @@ export function findCombinations(
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
-    } else if (flag === 1 && length === 4) {
+    } else if (flag === 1 && length === 5 && game === "Volleyball") {
       for (let player of team) {
         if (group_members[0].includes(player)) {
           pgCount += 1;
@@ -119,15 +134,32 @@ export function findCombinations(
         if (group_members[3].includes(player)) {
           pfCount += 1;
         }
+        if (group_members[4].includes(player)) {
+          cCount += 1;
+        }
+        if (teamAplayers.includes(player)) {
+          aCount += 1;
+        }
+        if (teamBplayers.includes(player)) {
+          bCount += 1;
+        }
       }
-      if (pgCount > 0 && sgCount > 0 && sfCount > 0 && pfCount > 0) {
+      if (
+        pgCount === 1 &&
+        sgCount > 0 &&
+        sfCount > 0 &&
+        pfCount > 0 &&
+        cCount > 0 &&
+        aCount > 1 &&
+        bCount > 1
+      ) {
         totTeams += 1;
         teamWithRange.push([
           team,
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
-    } else if (flag === 1 && length === 3) {
+    } else if (flag === 1 && length === 4 && game === "Criket") {
       for (let player of team) {
         if (group_members[0].includes(player)) {
           pgCount += 1;
@@ -138,8 +170,125 @@ export function findCombinations(
         if (group_members[2].includes(player)) {
           sfCount += 1;
         }
+        if (group_members[3].includes(player)) {
+          pfCount += 1;
+        }
+        if (teamAplayers.includes(player)) {
+          aCount += 1;
+        }
+        if (teamBplayers.includes(player)) {
+          bCount += 1;
+        }
       }
-      if (pgCount > 0 && sgCount > 0 && sfCount > 0) {
+      if (
+        pgCount > 0 &&
+        sgCount > 0 &&
+        sfCount > 0 &&
+        pfCount > 0 &&
+        aCount > 0 &&
+        bCount > 0
+      ) {
+        totTeams += 1;
+        teamWithRange.push([
+          team,
+          comb.reduce((total, player) => total + player[1], 0),
+        ]);
+      }
+    } else if (
+      flag === 1 &&
+      length === 4 &&
+      (game === "Football" || game === "Hockey")
+    ) {
+      for (let player of team) {
+        if (group_members[0].includes(player)) {
+          pgCount += 1;
+        }
+        if (group_members[1].includes(player)) {
+          sgCount += 1;
+        }
+        if (group_members[2].includes(player)) {
+          sfCount += 1;
+        }
+        if (group_members[3].includes(player)) {
+          pfCount += 1;
+        }
+        if (teamAplayers.includes(player)) {
+          aCount += 1;
+        }
+        if (teamBplayers.includes(player)) {
+          bCount += 1;
+        }
+      }
+      if (
+        pgCount === 1 &&
+        sgCount > 2 &&
+        sfCount > 2 &&
+        pfCount > 0 &&
+        aCount > 3 &&
+        bCount > 3
+      ) {
+        totTeams += 1;
+        teamWithRange.push([
+          team,
+          comb.reduce((total, player) => total + player[1], 0),
+        ]);
+      }
+    } else if (flag === 1 && length === 3 && game === "Kabaddi") {
+      for (let player of team) {
+        if (group_members[0].includes(player)) {
+          pgCount += 1;
+        }
+        if (group_members[1].includes(player)) {
+          sgCount += 1;
+        }
+        if (group_members[2].includes(player)) {
+          sfCount += 1;
+        }
+        if (teamAplayers.includes(player)) {
+          aCount += 1;
+        }
+        if (teamBplayers.includes(player)) {
+          bCount += 1;
+        }
+      }
+      if (
+        pgCount > 1 &&
+        sgCount > 0 &&
+        sfCount > 0 &&
+        aCount > 1 &&
+        bCount > 1
+      ) {
+        totTeams += 1;
+        teamWithRange.push([
+          team,
+          comb.reduce((total, player) => total + player[1], 0),
+        ]);
+      }
+    } else if (flag === 1 && length === 3 && game === "Hanball") {
+      for (let player of team) {
+        if (group_members[0].includes(player)) {
+          pgCount += 1;
+        }
+        if (group_members[1].includes(player)) {
+          sgCount += 1;
+        }
+        if (group_members[2].includes(player)) {
+          sfCount += 1;
+        }
+        if (teamAplayers.includes(player)) {
+          aCount += 1;
+        }
+        if (teamBplayers.includes(player)) {
+          bCount += 1;
+        }
+      }
+      if (
+        pgCount === 1 &&
+        sgCount > 1 &&
+        sfCount > 1 &&
+        aCount > 1 &&
+        bCount > 1
+      ) {
         totTeams += 1;
         teamWithRange.push([
           team,
