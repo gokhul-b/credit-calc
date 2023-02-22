@@ -132,7 +132,7 @@ function App() {
                     <div className="flex items-center">
                       <button
                         type="button"
-                        className="min-w-fit text-white bg-[#f34141] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-full text-sm px-2 sm:px-4 pb-1 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                        className="min-w-fit text-white bg-[#f34141] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-full text-sm px-2 sm:px-4 sm:pb-1 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                         onClick={() =>
                           handleremovePlayer(formIndex, fieldIndex)
                         }
