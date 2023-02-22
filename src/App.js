@@ -196,7 +196,7 @@ function App() {
                     return (
                       <div className="bg-gray-200 rounded m-1 p-2 text-center">
                         <div className="flex justify-between">
-                          <p>Team #{index}</p>
+                          <p>Team #{index + 1}</p>
                           <p>Credit : {array[1]}</p>
                         </div>
                         <div className="flex space-x-2 flex-wrap">
