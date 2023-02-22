@@ -9,6 +9,7 @@ function App() {
   ]);
   const [min_credit, setMinCredit] = useState("");
   const [max_credit, setMaxCredit] = useState("");
+  const [team_size, setTeamSize] = useState("");
 
   //functions
   const handleAddForm = () => {
@@ -63,6 +64,10 @@ function App() {
     setMinCredit(event.target.value);
   };
 
+  const handleTeamSize = (event) => {
+    setTeamSize(event.target.value);
+  };
+
   const handleMaxCreditChange = (event) => {
     setMaxCredit(event.target.value);
   };
@@ -81,8 +86,11 @@ function App() {
       conPlayers,
       min_credit,
       max_credit,
+      team_size,
     });
-    setResult(findCombinations(forms, conPlayers, min_credit, max_credit));
+    setResult(
+      findCombinations(forms, conPlayers, min_credit, max_credit, team_size)
+    );
   };
   return (
     <div className="w-full bg-gray-200 h-screen">
@@ -93,6 +101,15 @@ function App() {
               <p className="font-medium text-2xl font-sans text-gray-400">
                 D11 calculator
               </p>
+            </div>
+            <div>
+              <input
+                type="number"
+                className=" mb-5 sm:mb-10 block min-w-fit px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                placeholder="Team size"
+                value={team_size}
+                onChange={handleTeamSize}
+              />
             </div>
             {forms.map((form, formIndex) => (
               <form key={formIndex} className="space-y-4 md:space-y-6 mb-6">

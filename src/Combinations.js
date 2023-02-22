@@ -1,4 +1,10 @@
-export function findCombinations(forms, conPlayer, min_credit, max_credit) {
+export function findCombinations(
+  forms,
+  conPlayer,
+  min_credit,
+  max_credit,
+  team_size
+) {
   function* combinations(arr, k) {
     for (let i = 0; i < arr.length; i++) {
       if (k === 1) {
@@ -18,7 +24,7 @@ export function findCombinations(forms, conPlayer, min_credit, max_credit) {
       players.push(...group);
     }
     let comb = [];
-    for (let combi of combinations(players, 8)) {
+    for (let combi of combinations(players, team_size)) {
       let totalScore = combi.reduce((acc, p) => acc + p[1], 0);
       if (
         totalScore >= parseFloat(min_credit) &&
@@ -41,7 +47,7 @@ export function findCombinations(forms, conPlayer, min_credit, max_credit) {
   const group_members = forms.map(({ formFields }) =>
     formFields.reduce((acc, { name }) => acc.concat(name), [])
   );
-
+  let length = group_members.length;
   let pgCount = 0;
   let sgCount = 0;
   let sfCount = 0;
@@ -68,7 +74,7 @@ export function findCombinations(forms, conPlayer, min_credit, max_credit) {
       }
     }
 
-    if (flag === 1) {
+    if (flag === 1 && length === 5) {
       for (let player of team) {
         if (group_members[0].includes(player)) {
           pgCount += 1;
@@ -93,6 +99,47 @@ export function findCombinations(forms, conPlayer, min_credit, max_credit) {
         pfCount > 0 &&
         cCount > 0
       ) {
+        totTeams += 1;
+        teamWithRange.push([
+          team,
+          comb.reduce((total, player) => total + player[1], 0),
+        ]);
+      }
+    } else if (flag === 1 && length === 4) {
+      for (let player of team) {
+        if (group_members[0].includes(player)) {
+          pgCount += 1;
+        }
+        if (group_members[1].includes(player)) {
+          sgCount += 1;
+        }
+        if (group_members[2].includes(player)) {
+          sfCount += 1;
+        }
+        if (group_members[3].includes(player)) {
+          pfCount += 1;
+        }
+      }
+      if (pgCount > 0 && sgCount > 0 && sfCount > 0 && pfCount > 0) {
+        totTeams += 1;
+        teamWithRange.push([
+          team,
+          comb.reduce((total, player) => total + player[1], 0),
+        ]);
+      }
+    } else if (flag === 1 && length === 3) {
+      for (let player of team) {
+        if (group_members[0].includes(player)) {
+          pgCount += 1;
+        }
+        if (group_members[1].includes(player)) {
+          sgCount += 1;
+        }
+        if (group_members[2].includes(player)) {
+          sfCount += 1;
+        }
+      }
+      if (pgCount > 0 && sgCount > 0 && sfCount > 0) {
         totTeams += 1;
         teamWithRange.push([
           team,
