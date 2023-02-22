@@ -145,36 +145,36 @@ function App() {
                 Team Maker
               </p>
             </div>
+            <div className="flex space-x-4 mb-10 md:space-x-10">
+              <div className="min-w-max">
+                <select
+                  value={game}
+                  onChange={handleGame}
+                  placeholder="Select Game"
+                  className="form-control block w-full px-2.5 py-1.5 text-base font-normal text-gray-400 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                >
+                  <option className="font-normal">Select Game</option>
+                  <option value="Cricket">Cricket</option>
+                  <option value="Football">Football</option>
+                  <option value="Basketball">Basketball</option>
+                  <option value="Hockey">Hockey</option>
+                  <option value="Handball">Handball</option>
+                  <option value="Volleyball">Volleyball</option>
+                  <option value="Volleyball">Kabaddi</option>
+                </select>
+              </div>
+              <div className="min-w-min">
+                <input
+                  type="number"
+                  className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  placeholder="Team size"
+                  value={team_size}
+                  onChange={handleTeamSize}
+                />
+              </div>
+            </div>
             {forms.map((form, formIndex) => (
               <form key={formIndex} className="space-y-4 md:space-y-6 mb-6">
-                <div className="flex space-x-4 md:space-x-10">
-                  <div className="min-w-max">
-                    <select
-                      value={game}
-                      onChange={handleGame}
-                      placeholder="Select Game"
-                      className="form-control block w-full px-2.5 py-1.5 text-base font-normal text-gray-400 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    >
-                      <option className="font-normal">Select Game</option>
-                      <option value="Cricket">Cricket</option>
-                      <option value="Football">Football</option>
-                      <option value="Basketball">Basketball</option>
-                      <option value="Hockey">Hockey</option>
-                      <option value="Handball">Handball</option>
-                      <option value="Volleyball">Volleyball</option>
-                      <option value="Volleyball">Kabaddi</option>
-                    </select>
-                  </div>
-                  <div className="min-w-min">
-                    <input
-                      type="number"
-                      className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                      placeholder="Team size"
-                      value={team_size}
-                      onChange={handleTeamSize}
-                    />
-                  </div>
-                </div>
                 <div>
                   <label className="block text-md font-medium text-gray-400">
                     Group {formIndex + 1}
