@@ -26,6 +26,13 @@ function App() {
     setForms(updatedForms);
   };
 
+  const handleremovePlayer = (formIndex) => {
+    const updatedForms = [...forms];
+    const formFields = updatedForms[formIndex].formFields;
+    formFields.splice(formIndex, 1);
+    setForms(updatedForms);
+  };
+
   const handleInputChangeName = (formIndex, fieldIndex, event) => {
     const updatedForms = [...forms];
     const formFields = updatedForms[formIndex].formFields;
@@ -76,7 +83,7 @@ function App() {
     <div className="w-full bg-gray-200 h-screen">
       <div className="p-4 mx-auto w-full  bg-gray-200">
         <div className="flex justify-center ">
-          <div className="mb-3 mt-20 w-[950px] bg-white border shadow-lg rounded-lg overflow-hidden px-2 py-5 sm:px-10 sm:py-10 ">
+          <div className="mb-3 sm:mt-10 w-[950px] bg-white border shadow-lg rounded-lg overflow-hidden px-2 py-5 sm:px-10 sm:py-10 ">
             <div className="w-full flex justify-center mb-10">
               <p className="font-medium text-2xl font-sans text-gray-400">
                 D11 calculator
@@ -84,6 +91,11 @@ function App() {
             </div>
             {forms.map((form, formIndex) => (
               <form key={formIndex} className="space-y-4 md:space-y-6 mb-6">
+                <div>
+                  <label className="block text-md font-medium text-gray-400">
+                    Group {formIndex + 1}
+                  </label>
+                </div>
                 {form.formFields.map((field, fieldIndex) => (
                   <div key={fieldIndex} className="flex space-x-4">
                     <input
@@ -116,6 +128,17 @@ function App() {
                       <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 min-w-fit">
                         CP
                       </label>
+                    </div>
+                    <div className="flex items-center">
+                      <button
+                        type="button"
+                        className="min-w-fit text-white bg-[#f34141] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-full text-sm px-2 sm:px-4 pb-1 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                        onClick={() =>
+                          handleremovePlayer(formIndex, fieldIndex)
+                        }
+                      >
+                        x
+                      </button>
                     </div>
                   </div>
                 ))}
