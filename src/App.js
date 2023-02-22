@@ -145,7 +145,7 @@ function App() {
                 Team Maker
               </p>
             </div>
-            <div className="flex space-x-4 mb-10 md:space-x-10">
+            <div className="flex space-x-4 mb-5 md:space-x-10">
               <div className="min-w-max">
                 <select
                   value={game}
