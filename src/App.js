@@ -160,7 +160,7 @@ function App() {
                   <option value="Hockey">Hockey</option>
                   <option value="Handball">Handball</option>
                   <option value="Volleyball">Volleyball</option>
-                  <option value="Volleyball">Kabaddi</option>
+                  <option value="Kabaddi">Kabaddi</option>
                 </select>
               </div>
               <div className="min-w-min">
@@ -238,7 +238,7 @@ function App() {
                           }
                         />
                         <label className="font-regular text-sm sm:text-md text-gray-600">
-                          Team A
+                          White
                         </label>
                       </div>
                       <div className="space-x-1">
@@ -252,7 +252,7 @@ function App() {
                           }
                         />
                         <label className="font-regular text-sm sm:text-md text-gray-600">
-                          Team B
+                          Black
                         </label>
                       </div>
                     </div>
