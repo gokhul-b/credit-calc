@@ -329,11 +329,20 @@ function App() {
                       >
                         <div className="flex justify-between">
                           <p>Team #{index + 1}</p>
-                          <p>Credit: {array[1]}</p>
+                          <div className="flex">
+                            <div className="border border-[#40b511] bg-gray-100 rounded-lg px-3 mx-3 text-sm">
+                              <p>
+                                {array[1]}-{array[2]}
+                              </p>
+                            </div>
+                            <div className="pl-2 text-sm">
+                              <p>Credit: {array[3]}</p>
+                            </div>
+                          </div>
                         </div>
                         <div className="flex space-x-2 flex-wrap">
-                          {array[0].map((player) => {
-                            return <p>{player}</p>;
+                          {array[0].map((player, index) => {
+                            return <p key={index}> {player}</p>;
                           })}
                         </div>
                       </div>

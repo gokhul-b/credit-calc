@@ -117,6 +117,8 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
+          aCount,
+          bCount,
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
@@ -156,6 +158,8 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
+          aCount,
+          bCount,
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
@@ -191,6 +195,8 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
+          aCount,
+          bCount,
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
@@ -230,6 +236,8 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
+          aCount,
+          bCount,
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
@@ -261,6 +269,8 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
+          aCount,
+          bCount,
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
@@ -292,6 +302,8 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
+          aCount,
+          bCount,
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
