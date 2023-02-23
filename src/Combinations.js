@@ -159,7 +159,7 @@ export function findCombinations(
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
-    } else if (flag === 1 && length === 4 && game === "Criket") {
+    } else if (flag === 1 && length === 4 && game === "Cricket") {
       for (let player of team) {
         if (group_members[0].includes(player)) {
           pgCount += 1;
@@ -264,7 +264,7 @@ export function findCombinations(
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
-    } else if (flag === 1 && length === 3 && game === "Hanball") {
+    } else if (flag === 1 && length === 3 && game === "Handball") {
       for (let player of team) {
         if (group_members[0].includes(player)) {
           pgCount += 1;

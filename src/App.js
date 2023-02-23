@@ -323,7 +323,10 @@ function App() {
                 {result &&
                   result.map((array, index) => {
                     return (
-                      <div className="bg-gray-200 rounded m-1 p-2 text-center">
+                      <div
+                        key={index}
+                        className="bg-gray-200 rounded m-1 p-2 text-center"
+                      >
                         <div className="flex justify-between">
                           <p>Team #{index + 1}</p>
                           <p>Credit: {array[1]}</p>
