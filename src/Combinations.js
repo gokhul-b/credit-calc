@@ -40,7 +40,7 @@ export function findCombinations(
   }
 
   const conPlayers = conPlayer.map(({ name }) => name);
-  console.log(conPlayers);
+  //console.log(conPlayers);
 
   const groups = forms.map(({ formFields }) =>
     formFields.map(({ name, credit }) => [name, parseFloat(credit)])
@@ -117,8 +117,7 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
-          aCount,
-          bCount,
+          [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
@@ -158,8 +157,7 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
-          aCount,
-          bCount,
+          [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
@@ -195,8 +193,7 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
-          aCount,
-          bCount,
+          [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
@@ -236,8 +233,7 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
-          aCount,
-          bCount,
+          [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
@@ -269,8 +265,7 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
-          aCount,
-          bCount,
+          [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
@@ -302,14 +297,13 @@ export function findCombinations(
         totTeams += 1;
         teamWithRange.push([
           team,
-          aCount,
-          bCount,
+          [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
         ]);
       }
     }
   }
-  console.log(totTeams);
+  //console.log(totTeams);
   const sorted_list = teamWithRange.sort((a, b) => b[1] - a[1]);
   return sorted_list;
 }

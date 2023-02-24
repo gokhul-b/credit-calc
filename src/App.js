@@ -4,9 +4,7 @@ import { findCombinations } from "./Combinations";
 function App() {
   //states
   const [result, setResult] = useState([]);
-  // const [forms, setForms] = useState([
-  //   { formFields: [{ name: "", credit: "", isConstant: false }] },
-  // ]);
+  const [query, setQuery] = useState("");
   const [forms, setForms] = useState([
     { formFields: [{ name: "", credit: "", isConstant: false, team: "" }] },
   ]);
@@ -14,8 +12,10 @@ function App() {
   const [max_credit, setMaxCredit] = useState("");
   const [team_size, setTeamSize] = useState("");
   const [game, setGame] = useState("");
+  const [isFilterEnabled, setIsFilterEnabled] = useState(false);
 
   //functions
+
   const handleAddForm = () => {
     const updatedForms = [...forms];
     updatedForms.push({
@@ -87,8 +87,8 @@ function App() {
     setMaxCredit(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (event) => {
+    setIsFilterEnabled(true);
     const conPlayers = forms.reduce((acc, form) => {
       const constantFields = form.formFields.filter(
         (field) => field.isConstant
@@ -112,29 +112,144 @@ function App() {
       )
       .flat();
 
-    console.log(teamAplayers);
-    console.log(teamBplayers);
-    console.log({
+    // console.log(teamAplayers);
+    // console.log(teamBplayers);
+    // console.log({
+    //   forms,
+    //   conPlayers,
+    //   min_credit,
+    //   max_credit,
+    //   team_size,
+    //   game,
+    //   teamBplayers,
+    //   teamAplayers,
+    // });
+
+    // const saumit = {
+    //   forms: [
+    //     {
+    //       formFields: [
+    //         {
+    //           name: "sa",
+    //           credit: "12",
+    //           isConstant: false,
+    //           team: "teamA",
+    //         },
+    //         {
+    //           name: "asd",
+    //           credit: "14",
+    //           isConstant: false,
+    //           team: "teamB",
+    //         },
+    //         {
+    //           name: "xcvb",
+    //           credit: "13",
+    //           isConstant: false,
+    //           team: "teamA",
+    //         },
+    //         {
+    //           name: "xcv",
+    //           credit: "10",
+    //           isConstant: false,
+    //           team: "teamB",
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       formFields: [
+    //         {
+    //           name: "jhgf",
+    //           credit: "12",
+    //           isConstant: false,
+    //           team: "teamA",
+    //         },
+    //         {
+    //           name: "lkjh",
+    //           credit: "13",
+    //           isConstant: false,
+    //           team: "teamB",
+    //         },
+    //         {
+    //           name: "oiuy",
+    //           credit: "12",
+    //           isConstant: false,
+    //           team: "teamA",
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       formFields: [
+    //         {
+    //           name: "lkjhg",
+    //           credit: "10",
+    //           isConstant: false,
+    //           team: "teamA",
+    //         },
+    //         {
+    //           name: "sdfghj",
+    //           credit: "9",
+    //           isConstant: true,
+    //           team: "teamB",
+    //         },
+    //         {
+    //           name: "lkjhgf",
+    //           credit: "10",
+    //           isConstant: false,
+    //           team: "teamB",
+    //         },
+    //       ],
+    //     },
+    //   ],
+    //   conPlayers: [
+    //     {
+    //       name: "sdfghj",
+    //       credit: "9",
+    //       isConstant: true,
+    //       team: "teamB",
+    //     },
+    //   ],
+    //   min_credit: "0",
+    //   max_credit: "100",
+    //   team_size: "7",
+    //   game: "Handball",
+    //   teamBplayers: ["asd", "xcv", "lkjh", "sdfghj", "lkjhgf"],
+    //   teamAplayers: ["sa", "xcvb", "jhgf", "oiuy", "lkjhg"],
+    // };
+
+    // const arr = findCombinations(
+    //   saumit.forms,
+    //   saumit.conPlayers,
+    //   saumit.min_credit,
+    //   saumit.max_credit,
+    //   saumit.team_size,
+    //   saumit.teamAplayers,
+    //   saumit.teamBplayers,
+    //   saumit.game
+    // );
+
+    const arr = findCombinations(
       forms,
       conPlayers,
       min_credit,
       max_credit,
       team_size,
-      game,
-    });
-    setResult(
-      findCombinations(
-        forms,
-        conPlayers,
-        min_credit,
-        max_credit,
-        team_size,
-        teamAplayers,
-        teamBplayers,
-        game
-      )
+      teamAplayers,
+      teamBplayers,
+      game
     );
+
+    // eslint-disable-next-line array-callback-return
+    let l = arr.filter((r) => {
+      let s = r[1].join("");
+      if (s.includes(query)) {
+        return r;
+      } else {
+        setResult(arr);
+      }
+    });
+    setResult(l);
   };
+
   return (
     <div className="w-full bg-gray-200 h-screen">
       <div className="p-4 mx-auto w-full  bg-gray-200">
@@ -319,6 +434,16 @@ function App() {
               </button>
             </div>
             <div className="my-6">
+              <input
+                type="text"
+                placeholder="Search the combination"
+                disabled={!isFilterEnabled}
+                className="form-control block  px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                onChange={(e) => {
+                  handleSubmit();
+                  setQuery(e.target.value);
+                }}
+              />
               <div className="flex flex-col space-y-5">
                 {result &&
                   result.map((array, index) => {
@@ -331,12 +456,10 @@ function App() {
                           <p>Team #{index + 1}</p>
                           <div className="flex">
                             <div className="border border-[#40b511] bg-gray-100 rounded-lg px-3 mx-3 text-sm">
-                              <p>
-                                {array[1]}-{array[2]}
-                              </p>
+                              <p>{array[1]}</p>
                             </div>
                             <div className="pl-2 text-sm">
-                              <p>Credit: {array[3]}</p>
+                              <p>Credit: {array[2]}</p>
                             </div>
                           </div>
                         </div>
