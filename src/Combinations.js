@@ -303,7 +303,7 @@ export function findCombinations(
       }
     }
   }
-  //console.log(totTeams);
-  const sorted_list = teamWithRange.sort((a, b) => b[1] - a[1]);
+  console.log(totTeams);
+  const sorted_list = teamWithRange.sort((a, b) => b[2] - a[2]);
   return sorted_list;
 }
