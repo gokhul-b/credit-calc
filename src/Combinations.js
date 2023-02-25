@@ -248,6 +248,7 @@ export function findCombinations(
         if (group_members[2].includes(player)) {
           sfCount += 1;
         }
+
         if (teamAplayers.includes(player)) {
           aCount += 1;
         }
@@ -293,6 +294,44 @@ export function findCombinations(
         sfCount > 1 &&
         aCount > 1 &&
         bCount > 1
+      ) {
+        totTeams += 1;
+        teamWithRange.push([
+          team,
+          [aCount, "-", bCount],
+          comb.reduce((total, player) => total + player[1], 0),
+        ]);
+      }
+    } else if (flag === 1 && length === 4 && game === "Baseball") {
+      for (let player of team) {
+        if (group_members[0].includes(player)) {
+          pgCount += 1;
+        }
+        if (group_members[1].includes(player)) {
+          sgCount += 1;
+        }
+        if (group_members[2].includes(player)) {
+          sfCount += 1;
+        }
+        if (group_members[3].includes(player)) {
+          pfCount += 1;
+        }
+        if (teamAplayers.includes(player)) {
+          aCount += 1;
+        }
+        if (teamBplayers.includes(player)) {
+          bCount += 1;
+        }
+      }
+      if (
+        pgCount > 1 &&
+        pgCount < 6 &&
+        sgCount > 1 &&
+        sgCount < 6 &&
+        sfCount === 1 &&
+        pfCount === 1 &&
+        aCount > 2 &&
+        bCount > 2
       ) {
         totTeams += 1;
         teamWithRange.push([

@@ -114,16 +114,16 @@ function App() {
 
     // console.log(teamAplayers);
     // console.log(teamBplayers);
-    // console.log({
-    //   forms,
-    //   conPlayers,
-    //   min_credit,
-    //   max_credit,
-    //   team_size,
-    //   game,
-    //   teamBplayers,
-    //   teamAplayers,
-    // });
+    console.log({
+      forms,
+      conPlayers,
+      min_credit,
+      max_credit,
+      team_size,
+      game,
+      teamBplayers,
+      teamAplayers,
+    });
 
     // const saumit = {
     //   forms: [
@@ -254,7 +254,7 @@ function App() {
     <div className="w-full bg-gray-200 h-screen">
       <div className="p-4 mx-auto w-full  bg-gray-200">
         <div className="flex justify-center ">
-          <div className="mb-3 sm:mt-10 w-[950px] bg-white border shadow-lg rounded-lg overflow-hidden px-2 py-5 sm:px-10 sm:py-10 ">
+          <div className="mb-3 sm:mt-10 sm:w-[950px] bg-white border shadow-lg rounded-lg overflow-hidden px-2 py-5 sm:px-10 sm:py-10 ">
             <div className="w-full flex justify-center mb-10">
               <p className="font-medium text-2xl font-sans text-gray-400">
                 Team Maker
@@ -276,6 +276,7 @@ function App() {
                   <option value="Handball">Handball</option>
                   <option value="Volleyball">Volleyball</option>
                   <option value="Kabaddi">Kabaddi</option>
+                  <option value="Baseball">Baseball</option>
                 </select>
               </div>
               <div className="min-w-min">
@@ -343,30 +344,32 @@ function App() {
                     </div>
                     <div className="flex space-x-4 ml-2">
                       <div className="space-x-1">
-                        <input
-                          type="radio"
-                          name={`team-${formIndex}-${fieldIndex}`}
-                          value="teamA"
-                          checked={field.team === "teamA"}
-                          onChange={(event) =>
-                            handleTeamChange(formIndex, fieldIndex, event)
-                          }
-                        />
-                        <label className="font-regular text-sm sm:text-md text-gray-600">
+                        <label className="font-regular text-sm sm:text-md text-gray-600 flex ">
+                          <input
+                            type="radio"
+                            className="mr-1"
+                            name={`team-${formIndex}-${fieldIndex}`}
+                            value="teamA"
+                            checked={field.team === "teamA"}
+                            onChange={(event) =>
+                              handleTeamChange(formIndex, fieldIndex, event)
+                            }
+                          />
                           White
                         </label>
                       </div>
                       <div className="space-x-1">
-                        <input
-                          type="radio"
-                          name={`team-${formIndex}-${fieldIndex}`}
-                          value="teamB"
-                          checked={field.team === "teamB"}
-                          onChange={(event) =>
-                            handleTeamChange(formIndex, fieldIndex, event)
-                          }
-                        />
-                        <label className="font-regular text-sm sm:text-md text-gray-600">
+                        <label className="font-regular text-sm sm:text-md text-gray-600 flex">
+                          <input
+                            type="radio"
+                            className="mr-1"
+                            name={`team-${formIndex}-${fieldIndex}`}
+                            value="teamB"
+                            checked={field.team === "teamB"}
+                            onChange={(event) =>
+                              handleTeamChange(formIndex, fieldIndex, event)
+                            }
+                          />
                           Black
                         </label>
                       </div>
@@ -430,7 +433,7 @@ function App() {
                 className="text-white bg-[#40b511] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-full text-xs sm:text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 onClick={handleSubmit}
               >
-                Submit
+                Generate
               </button>
             </div>
             <div className="my-6">
@@ -440,8 +443,8 @@ function App() {
                 disabled={!isFilterEnabled}
                 className="mb-8 form-control block min-w-fit px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 onChange={(e) => {
-                  handleSubmit();
                   setQuery(e.target.value);
+                  handleSubmit();
                 }}
               />
               <div className="flex flex-col space-y-5">
