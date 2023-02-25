@@ -266,7 +266,7 @@ function App() {
                   value={game}
                   onChange={handleGame}
                   placeholder="Select Game"
-                  className="form-control block w-full px-2.5 py-1.5 text-base font-normal text-gray-400 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  className="form-control block w-full px-2.5 py-1.5 text-sm sm:text-sm sm:text-base font-normal text-gray-400 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 >
                   <option className="font-normal">Select Game</option>
                   <option value="Cricket">Cricket</option>
@@ -282,7 +282,7 @@ function App() {
               <div className="min-w-min">
                 <input
                   type="number"
-                  className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   placeholder="Team size"
                   value={team_size}
                   onChange={handleTeamSize}
@@ -301,8 +301,8 @@ function App() {
                     <div className="flex space-x-4">
                       <input
                         type="text"
-                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        placeholder="Enter a name"
+                        className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        placeholder="Enter name"
                         value={field.name}
                         onChange={(event) =>
                           handleInputChangeName(formIndex, fieldIndex, event)
@@ -310,8 +310,8 @@ function App() {
                       />
                       <input
                         type="text"
-                        placeholder="Enter the credit"
-                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        placeholder="Enter credit"
+                        className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         value={field.credit}
                         onChange={(event) =>
                           handleInputChangeCredit(formIndex, fieldIndex, event)
@@ -412,7 +412,7 @@ function App() {
                 <input
                   type="number"
                   placeholder="Min Credit"
-                  className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   value={min_credit}
                   onChange={handleMinCreditChange}
                 />
@@ -421,13 +421,13 @@ function App() {
                 <input
                   type="number"
                   placeholder="Max Credit"
-                  className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   value={max_credit}
                   onChange={handleMaxCreditChange}
                 />
               </div>
             </div>
-            <div className="flex justify-center w-full mt-8">
+            <div className="flex justify-center w-full mt-6 mb-10">
               <button
                 type="submit"
                 className="text-white bg-[#40b511] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-full text-xs sm:text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
@@ -436,12 +436,12 @@ function App() {
                 Generate
               </button>
             </div>
-            <div className="my-6">
+            <div className="mb-6">
               <input
                 type="text"
-                placeholder="Search the combination"
+                placeholder="search...eg: 5-2, 7-4"
                 disabled={!isFilterEnabled}
-                className="mb-8 form-control block min-w-fit px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="mb-8 form-control block min-w-fit px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 onChange={(e) => {
                   setQuery(e.target.value);
                   handleSubmit();
