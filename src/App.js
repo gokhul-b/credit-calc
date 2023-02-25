@@ -290,7 +290,7 @@ function App() {
               </div>
             </div>
             {forms.map((form, formIndex) => (
-              <form key={formIndex} className="space-y-4 md:space-y-6 mb-6">
+              <form key={formIndex} className="space-y-6 md:space-y-10 mb-6">
                 <div>
                   <label className="block text-md font-medium text-gray-400">
                     Group {formIndex + 1}
@@ -376,7 +376,7 @@ function App() {
                     </div>
                   </div>
                 ))}
-                <div className="flex justify-between ">
+                <div className="flex justify-between">
                   <div className="min-w-fit">
                     <button
                       className=" mb-4 min-w-fit text-white bg-[#2d2d2d] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs sm:text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
@@ -398,7 +398,7 @@ function App() {
                 </div>
               </form>
             ))}
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 mt-6">
               <div className="min-w-fit">
                 <button
                   type="button"
