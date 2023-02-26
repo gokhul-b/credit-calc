@@ -342,7 +342,7 @@ function App() {
                       <input
                         type="text"
                         className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        placeholder="Enter name"
+                        placeholder="name"
                         value={field.name}
                         onChange={(event) =>
                           handleInputChangeName(formIndex, fieldIndex, event)
@@ -350,7 +350,7 @@ function App() {
                       />
                       <input
                         type="text"
-                        placeholder="Enter credit"
+                        placeholder="credit"
                         className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         value={field.credit}
                         onChange={(event) =>
@@ -359,7 +359,7 @@ function App() {
                       />
                       <input
                         type="text"
-                        placeholder="Enter pts"
+                        placeholder="pts"
                         className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         value={field.points}
                         onChange={(event) =>
