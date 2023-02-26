@@ -36,6 +36,7 @@ export function findCombinations(
         comb.push(combi);
       }
     }
+    // console.log(comb);
     return comb;
   }
 
@@ -43,13 +44,32 @@ export function findCombinations(
   //console.log(conPlayers);
 
   const groups = forms.map(({ formFields }) =>
-    formFields.map(({ name, credit }) => [name, parseFloat(credit)])
+    formFields.map(({ name, credit, points }) => [
+      name,
+      parseFloat(credit),
+      parseFloat(points),
+    ])
   );
+
   const combination = select_players(groups);
 
   const group_members = forms.map(({ formFields }) =>
     formFields.reduce((acc, { name }) => acc.concat(name), [])
   );
+
+  // const points = forms.map(({ formFields }) =>
+  //   formFields.map(({ points }) => [parseFloat(points)])
+  // );
+
+  // console.log(points);
+
+  // let flattenedArray = points.flatMap((innerArray) => innerArray.flat());
+  // let sum = flattenedArray.reduce(
+  //   (accumulator, currentValue) => accumulator + currentValue
+  // );
+
+  // console.log(sum);
+
   let length = group_members.length;
   let pgCount = 0;
   let sgCount = 0;
@@ -119,6 +139,7 @@ export function findCombinations(
           team,
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
+          comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
         ]);
       }
     } else if (flag === 1 && length === 5 && game === "Volleyball") {
@@ -159,6 +180,7 @@ export function findCombinations(
           team,
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
+          comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
         ]);
       }
     } else if (flag === 1 && length === 4 && game === "Cricket") {
@@ -195,6 +217,7 @@ export function findCombinations(
           team,
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
+          comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
         ]);
       }
     } else if (
@@ -235,6 +258,7 @@ export function findCombinations(
           team,
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
+          comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
         ]);
       }
     } else if (flag === 1 && length === 3 && game === "Kabaddi") {
@@ -268,6 +292,7 @@ export function findCombinations(
           team,
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
+          comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
         ]);
       }
     } else if (flag === 1 && length === 3 && game === "Handball") {
@@ -300,6 +325,7 @@ export function findCombinations(
           team,
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
+          comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
         ]);
       }
     } else if (flag === 1 && length === 4 && game === "Baseball") {
@@ -338,6 +364,7 @@ export function findCombinations(
           team,
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
+          comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
         ]);
       }
     }

@@ -6,7 +6,11 @@ function App() {
   const [result, setResult] = useState([]);
   const [query, setQuery] = useState("");
   const [forms, setForms] = useState([
-    { formFields: [{ name: "", credit: "", isConstant: false, team: "" }] },
+    {
+      formFields: [
+        { name: "", credit: "", isConstant: false, team: "", points: 0 },
+      ],
+    },
   ]);
   const [min_credit, setMinCredit] = useState("");
   const [max_credit, setMaxCredit] = useState("");
@@ -23,6 +27,20 @@ function App() {
     });
     setForms(updatedForms);
   };
+
+  const clearAllPoints = () => {
+    const updatedForms = forms.map((group) => {
+      const updatedFields = group.formFields.map((field) => {
+        if (field.points) {
+          return { ...field, points: 0 };
+        }
+        return field;
+      });
+      return { ...group, formFields: updatedFields };
+    });
+    setForms(updatedForms);
+  };
+
   const handleDeleteGroup = (formIndex) => {
     const updatedForms = [...forms];
     updatedForms.splice(formIndex, 1);
@@ -61,6 +79,12 @@ function App() {
     const updatedForms = [...forms];
     const formFields = updatedForms[formIndex].formFields;
     formFields[fieldIndex].credit = event.target.value;
+    setForms(updatedForms);
+  };
+  const handleInputChangePoints = (formIndex, fieldIndex, event) => {
+    const updatedForms = [...forms];
+    const formFields = updatedForms[formIndex].formFields;
+    formFields[fieldIndex].points = event.target.value;
     setForms(updatedForms);
   };
 
@@ -237,17 +261,33 @@ function App() {
       teamBplayers,
       game
     );
+    // console.log("result", arr);
 
-    // eslint-disable-next-line array-callback-return
-    let l = arr.filter((r) => {
-      let s = r[1].join("");
-      if (s.includes(query)) {
-        return r;
-      } else {
-        setResult(arr);
-      }
-    });
-    setResult(l);
+    const points_list = arr.sort((a, b) => b[3] - a[3]);
+    console.log(points_list);
+    if (points_list === arr) {
+      // eslint-disable-next-line array-callback-return
+      let l = arr.filter((r) => {
+        let s = r[1].join("");
+        if (s.includes(query)) {
+          return r;
+        } else {
+          setResult(arr);
+        }
+      });
+      setResult(l);
+    } else {
+      // eslint-disable-next-line array-callback-return
+      let l = points_list.filter((r) => {
+        let s = r[1].join("");
+        if (s.includes(query)) {
+          return r;
+        } else {
+          setResult(points_list);
+        }
+      });
+      setResult(l);
+    }
   };
 
   return (
@@ -315,6 +355,15 @@ function App() {
                         value={field.credit}
                         onChange={(event) =>
                           handleInputChangeCredit(formIndex, fieldIndex, event)
+                        }
+                      />
+                      <input
+                        type="number"
+                        placeholder="Enter pts"
+                        className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        value={field.points}
+                        onChange={(event) =>
+                          handleInputChangePoints(formIndex, fieldIndex, event)
                         }
                       />
                       <div className="flex items-center">
@@ -408,6 +457,7 @@ function App() {
                   Add Group
                 </button>
               </div>
+
               <div>
                 <input
                   type="number"
@@ -437,16 +487,27 @@ function App() {
               </button>
             </div>
             <div className="mb-6">
-              <input
-                type="text"
-                placeholder="search...eg: 5-2, 7-4"
-                disabled={!isFilterEnabled}
-                className="mb-8 form-control block min-w-fit px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                  handleSubmit();
-                }}
-              />
+              <div className="flex space-x-4">
+                <input
+                  type="text"
+                  placeholder="search...eg: 5-2, 7-4"
+                  disabled={!isFilterEnabled}
+                  className="mb-8 form-control block min-w-fit px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                    handleSubmit();
+                  }}
+                />
+                <div className="min-w-fit">
+                  <button
+                    type="button"
+                    className=" mb-4 min-w-fit text-white bg-[#f34141] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs sm:text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    onClick={clearAllPoints}
+                  >
+                    Clear Points
+                  </button>
+                </div>
+              </div>
               <div className="flex flex-col space-y-5">
                 {result &&
                   result.map((array, index) => {
@@ -463,6 +524,9 @@ function App() {
                             </div>
                             <div className="pl-2 text-sm">
                               <p>Credit: {array[2]}</p>
+                            </div>
+                            <div className="ml-2 text-sm">
+                              <p>Points: {array[3]}</p>
                             </div>
                           </div>
                         </div>
