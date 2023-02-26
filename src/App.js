@@ -8,7 +8,7 @@ function App() {
   const [forms, setForms] = useState([
     {
       formFields: [
-        { name: "", credit: "", isConstant: false, team: "", points: 0 },
+        { name: "", credit: "", isConstant: false, team: "", points: "" },
       ],
     },
   ]);
@@ -23,7 +23,7 @@ function App() {
   const handleAddForm = () => {
     const updatedForms = [...forms];
     updatedForms.push({
-      formFields: [{ name: "", credit: "", isConstant: false }],
+      formFields: [{ name: "", credit: "", isConstant: false, points: "" }],
     });
     setForms(updatedForms);
   };
@@ -32,7 +32,7 @@ function App() {
     const updatedForms = forms.map((group) => {
       const updatedFields = group.formFields.map((field) => {
         if (field.points) {
-          return { ...field, points: 0 };
+          return { ...field, points: "" };
         }
         return field;
       });
@@ -358,7 +358,7 @@ function App() {
                         }
                       />
                       <input
-                        type="number"
+                        type="text"
                         placeholder="Enter pts"
                         className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         value={field.points}
