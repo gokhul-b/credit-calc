@@ -138,16 +138,16 @@ function App() {
 
     // console.log(teamAplayers);
     // console.log(teamBplayers);
-    console.log({
-      forms,
-      conPlayers,
-      min_credit,
-      max_credit,
-      team_size,
-      game,
-      teamBplayers,
-      teamAplayers,
-    });
+    // console.log({
+    //   forms,
+    //   conPlayers,
+    //   min_credit,
+    //   max_credit,
+    //   team_size,
+    //   game,
+    //   teamBplayers,
+    //   teamAplayers,
+    // });
 
     // const saumit = {
     //   forms: [
@@ -261,33 +261,47 @@ function App() {
       teamBplayers,
       game
     );
-    // console.log("result", arr);
 
-    const points_list = arr.sort((a, b) => b[3] - a[3]);
-    console.log(points_list);
-    if (points_list === arr) {
-      // eslint-disable-next-line array-callback-return
-      let l = arr.filter((r) => {
-        let s = r[1].join("");
-        if (s.includes(query)) {
-          return r;
-        } else {
-          setResult(arr);
-        }
-      });
-      setResult(l);
-    } else {
-      // eslint-disable-next-line array-callback-return
-      let l = points_list.filter((r) => {
-        let s = r[1].join("");
-        if (s.includes(query)) {
-          return r;
-        } else {
-          setResult(points_list);
-        }
-      });
-      setResult(l);
-    }
+    // eslint-disable-next-line array-callback-return
+    let l = arr.filter((r) => {
+      let s = r[1].join("");
+      if (s.includes(query)) {
+        return r;
+      } else {
+        setResult(arr);
+      }
+    });
+    setResult(l);
+  };
+
+  const sortListBasedOnPoints = () => {
+    const array = [...result];
+    const sort_List = array.sort((a, b) => b[3] - a[3]);
+    // eslint-disable-next-line array-callback-return
+    let l = sort_List.filter((r) => {
+      let s = r[1].join("");
+      if (s.includes(query)) {
+        return r;
+      } else {
+        setResult(sort_List);
+      }
+    });
+    setResult(l);
+  };
+
+  const sortListBasedOnCredits = () => {
+    const array = [...result];
+    const sort_List = array.sort((a, b) => b[2] - a[2]);
+    // eslint-disable-next-line array-callback-return
+    let l = sort_List.filter((r) => {
+      let s = r[1].join("");
+      if (s.includes(query)) {
+        return r;
+      } else {
+        setResult(sort_List);
+      }
+    });
+    setResult(l);
   };
 
   return (
@@ -487,24 +501,36 @@ function App() {
               </button>
             </div>
             <div className="mb-6">
-              <div className="flex space-x-4">
-                <input
-                  type="text"
-                  placeholder="search...eg: 5-2, 7-4"
-                  disabled={!isFilterEnabled}
-                  className="mb-8 form-control block min-w-fit px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  onChange={(e) => {
-                    setQuery(e.target.value);
-                    handleSubmit();
-                  }}
-                />
-                <div className="min-w-fit">
-                  <button
-                    type="button"
-                    className=" mb-4 min-w-fit text-white bg-[#f34141] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs sm:text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                    onClick={clearAllPoints}
-                  >
-                    Clear Points
+              <div className="flex justify-between space-x-4">
+                <div className="flex space-x-4">
+                  <input
+                    type="text"
+                    placeholder="search...eg: 5-2, 7-4"
+                    disabled={!isFilterEnabled}
+                    className="mb-8 form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    onChange={(e) => {
+                      setQuery(e.target.value);
+                      handleSubmit();
+                    }}
+                  />
+                  <div className="min-w-fit">
+                    <button
+                      type="button"
+                      className=" mb-4 min-w-fit text-white bg-[#f34141] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs sm:text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                      onClick={clearAllPoints}
+                    >
+                      Clear Points
+                    </button>
+                  </div>
+                </div>
+                <div className="flex space-x-4 text-sm sm:text-base font-light mx-4">
+                  <button onClick={sortListBasedOnCredits} className="flex">
+                    Credits
+                    <p className="ml-1">&#9660;</p>
+                  </button>
+                  <button onClick={sortListBasedOnPoints} className="flex">
+                    Points
+                    <p className="ml-1">&#9660;</p>
                   </button>
                 </div>
               </div>
