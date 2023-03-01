@@ -6,7 +6,8 @@ export function findCombinations(
   team_size,
   teamAplayers,
   teamBplayers,
-  game
+  game,
+  excludedPlayer
 ) {
   function* combinations(arr, k) {
     for (let i = 0; i < arr.length; i++) {
@@ -42,6 +43,9 @@ export function findCombinations(
 
   const conPlayers = conPlayer.map(({ name }) => name);
   //console.log(conPlayers);
+
+  const excludedPlayers = excludedPlayer.map(({ name }) => name);
+  console.log(excludedPlayers);
 
   const groups = forms.map(({ formFields }) =>
     formFields.map(({ name, credit, points }) => [
@@ -98,6 +102,15 @@ export function findCombinations(
       } else {
         flag = 0;
         break;
+      }
+    }
+
+    if (flag === 1) {
+      for (let player of excludedPlayers) {
+        if (team.includes(player)) {
+          flag = 0;
+          break;
+        }
       }
     }
 

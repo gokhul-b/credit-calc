@@ -8,7 +8,14 @@ function App() {
   const [forms, setForms] = useState([
     {
       formFields: [
-        { name: "", credit: "", isConstant: false, team: "", points: "" },
+        {
+          name: "",
+          credit: "",
+          isConstant: false,
+          team: "",
+          points: "",
+          isExcluded: false,
+        },
       ],
     },
   ]);
@@ -23,7 +30,15 @@ function App() {
   const handleAddForm = () => {
     const updatedForms = [...forms];
     updatedForms.push({
-      formFields: [{ name: "", credit: "", isConstant: false, points: "" }],
+      formFields: [
+        {
+          name: "",
+          credit: "",
+          isConstant: false,
+          points: "",
+          isExcluded: false,
+        },
+      ],
     });
     setForms(updatedForms);
   };
@@ -95,6 +110,13 @@ function App() {
     setForms(updatedForms);
   };
 
+  const handleIsExcluded = (formIndex, fieldIndex) => {
+    const updatedForms = [...forms];
+    const formFields = updatedForms[formIndex].formFields;
+    formFields[fieldIndex].isExcluded = !formFields[fieldIndex].isExcluded;
+    setForms(updatedForms);
+  };
+
   const handleMinCreditChange = (event) => {
     setMinCredit(event.target.value);
   };
@@ -113,6 +135,7 @@ function App() {
 
   const handleSubmit = async (event) => {
     setIsFilterEnabled(true);
+
     const conPlayers = forms.reduce((acc, form) => {
       const constantFields = form.formFields.filter(
         (field) => field.isConstant
@@ -120,6 +143,15 @@ function App() {
 
       return acc.concat(constantFields);
     }, []);
+
+    const excludedPlayers = forms.reduce((acc, form) => {
+      const constantFields = form.formFields.filter(
+        (field) => field.isExcluded
+      );
+
+      return acc.concat(constantFields);
+    }, []);
+
     const teamAplayers = forms
       .map((form) =>
         form.formFields
@@ -259,7 +291,8 @@ function App() {
       team_size,
       teamAplayers,
       teamBplayers,
-      game
+      game,
+      excludedPlayers
     );
 
     // eslint-disable-next-line array-callback-return
@@ -320,7 +353,7 @@ function App() {
                   value={game}
                   onChange={handleGame}
                   placeholder="Select Game"
-                  className="form-control block w-full px-2.5 py-1.5 text-sm sm:text-sm sm:text-base font-normal text-gray-400 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  className="form-control block w-full px-2.5 py-1.5 text-sm  sm:text-base font-normal text-gray-400 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 >
                   <option className="font-normal">Select Game</option>
                   <option value="Cricket">Cricket</option>
@@ -434,6 +467,19 @@ function App() {
                             }
                           />
                           Black
+                        </label>
+                      </div>
+                      <div className="space-x-1">
+                        <label className="font-regular text-sm sm:text-md text-gray-600 flex">
+                          <input
+                            type="checkbox"
+                            className="mr-1"
+                            checked={field.isExcluded}
+                            onChange={() =>
+                              handleIsExcluded(formIndex, fieldIndex)
+                            }
+                          />
+                          Excluded
                         </label>
                       </div>
                     </div>
