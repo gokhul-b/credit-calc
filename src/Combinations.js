@@ -140,9 +140,13 @@ export function findCombinations(
       }
       if (
         pgCount > 0 &&
+        pgCount < 5 &&
         sgCount > 0 &&
+        sgCount < 5 &&
         sfCount > 0 &&
+        sfCount < 5 &&
         pfCount > 0 &&
+        pfCount < 5 &&
         cCount > 0 &&
         aCount > 2 &&
         bCount > 2
@@ -295,8 +299,11 @@ export function findCombinations(
       }
       if (
         pgCount > 1 &&
+        pgCount < 5 &&
         sgCount > 0 &&
+        sgCount < 3 &&
         sfCount > 0 &&
+        sfCount < 4 &&
         aCount > 1 &&
         bCount > 1
       ) {
