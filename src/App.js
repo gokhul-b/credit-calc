@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { findCombinations } from "./Combinations";
 
 function App() {
@@ -15,6 +15,13 @@ function App() {
           team: "",
           points: "",
           isExcluded: false,
+          isCaptain: false,
+          isViceCaptain: false,
+          pts: 0,
+          reb: 0,
+          ast: 0,
+          stl: 0,
+          block: 0,
         },
       ],
     },
@@ -37,6 +44,13 @@ function App() {
           isConstant: false,
           points: "",
           isExcluded: false,
+          isCaptain: false,
+          isViceCaptain: false,
+          pts: 0,
+          reb: 0,
+          ast: 0,
+          stl: 0,
+          block: 0,
         },
       ],
     });
@@ -72,7 +86,20 @@ function App() {
   const handleAddFields = (formIndex) => {
     const updatedForms = [...forms];
     const formFields = updatedForms[formIndex].formFields;
-    formFields.push({ name: "", credit: "", isConstant: false });
+    formFields.push({
+      name: "",
+      credit: "",
+      isConstant: false,
+      points: "",
+      isExcluded: false,
+      isCaptain: false,
+      isViceCaptain: false,
+      pts: 0,
+      reb: 0,
+      ast: 0,
+      stl: 0,
+      block: 0,
+    });
     setForms(updatedForms);
   };
 
@@ -96,10 +123,61 @@ function App() {
     formFields[fieldIndex].credit = event.target.value;
     setForms(updatedForms);
   };
+
   const handleInputChangePoints = (formIndex, fieldIndex, event) => {
     const updatedForms = [...forms];
     const formFields = updatedForms[formIndex].formFields;
     formFields[fieldIndex].points = event.target.value;
+    setForms(updatedForms);
+  };
+
+  const handleIsCaptain = (formIndex, fieldIndex) => {
+    const updatedForms = [...forms];
+    const formFields = updatedForms[formIndex].formFields;
+    formFields[fieldIndex].isCaptain = !formFields[fieldIndex].isCaptain;
+    setForms(updatedForms);
+  };
+
+  const handleIsViceCaptain = (formIndex, fieldIndex, event) => {
+    const updatedForms = [...forms];
+    const formFields = updatedForms[formIndex].formFields;
+    formFields[fieldIndex].isViceCaptain =
+      !formFields[fieldIndex].isViceCaptain;
+    setForms(updatedForms);
+  };
+
+  const handleInputChangePts = (formIndex, fieldIndex, event) => {
+    const updatedForms = [...forms];
+    const formFields = updatedForms[formIndex].formFields;
+    formFields[fieldIndex].pts = event.target.value;
+    setForms(updatedForms);
+  };
+
+  const handleInputChangeRebounce = (formIndex, fieldIndex, event) => {
+    const updatedForms = [...forms];
+    const formFields = updatedForms[formIndex].formFields;
+    formFields[fieldIndex].reb = event.target.value;
+    setForms(updatedForms);
+  };
+
+  const handleInputChangeAssist = (formIndex, fieldIndex, event) => {
+    const updatedForms = [...forms];
+    const formFields = updatedForms[formIndex].formFields;
+    formFields[fieldIndex].ast = event.target.value;
+    setForms(updatedForms);
+  };
+
+  const handleInputChangeSteal = (formIndex, fieldIndex, event) => {
+    const updatedForms = [...forms];
+    const formFields = updatedForms[formIndex].formFields;
+    formFields[fieldIndex].stl = event.target.value;
+    setForms(updatedForms);
+  };
+
+  const handleInputChangeBlock = (formIndex, fieldIndex, event) => {
+    const updatedForms = [...forms];
+    const formFields = updatedForms[formIndex].formFields;
+    formFields[fieldIndex].block = event.target.value;
     setForms(updatedForms);
   };
 
@@ -133,9 +211,22 @@ function App() {
     setMaxCredit(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
-    setIsFilterEnabled(true);
+  const nameRef = useRef(null);
+  const creditRef = useRef(null);
 
+  const handleSubmit = async (event) => {
+    // event.preventDefault();
+
+    const refs = [nameRef, creditRef];
+
+    for (let i = 0; i < refs.length; i++) {
+      if (!refs[i].current.validity.valid) {
+        refs[i].current.focus();
+        break;
+      }
+    }
+
+    setIsFilterEnabled(true);
     const conPlayers = forms.reduce((acc, form) => {
       const constantFields = form.formFields.filter(
         (field) => field.isConstant
@@ -168,120 +259,16 @@ function App() {
       )
       .flat();
 
-    // console.log(teamAplayers);
-    // console.log(teamBplayers);
-    // console.log({
-    //   forms,
-    //   conPlayers,
-    //   min_credit,
-    //   max_credit,
-    //   team_size,
-    //   game,
-    //   teamBplayers,
-    //   teamAplayers,
-    // });
-
-    // const saumit = {
-    //   forms: [
-    //     {
-    //       formFields: [
-    //         {
-    //           name: "sa",
-    //           credit: "12",
-    //           isConstant: false,
-    //           team: "teamA",
-    //         },
-    //         {
-    //           name: "asd",
-    //           credit: "14",
-    //           isConstant: false,
-    //           team: "teamB",
-    //         },
-    //         {
-    //           name: "xcvb",
-    //           credit: "13",
-    //           isConstant: false,
-    //           team: "teamA",
-    //         },
-    //         {
-    //           name: "xcv",
-    //           credit: "10",
-    //           isConstant: false,
-    //           team: "teamB",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       formFields: [
-    //         {
-    //           name: "jhgf",
-    //           credit: "12",
-    //           isConstant: false,
-    //           team: "teamA",
-    //         },
-    //         {
-    //           name: "lkjh",
-    //           credit: "13",
-    //           isConstant: false,
-    //           team: "teamB",
-    //         },
-    //         {
-    //           name: "oiuy",
-    //           credit: "12",
-    //           isConstant: false,
-    //           team: "teamA",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       formFields: [
-    //         {
-    //           name: "lkjhg",
-    //           credit: "10",
-    //           isConstant: false,
-    //           team: "teamA",
-    //         },
-    //         {
-    //           name: "sdfghj",
-    //           credit: "9",
-    //           isConstant: true,
-    //           team: "teamB",
-    //         },
-    //         {
-    //           name: "lkjhgf",
-    //           credit: "10",
-    //           isConstant: false,
-    //           team: "teamB",
-    //         },
-    //       ],
-    //     },
-    //   ],
-    //   conPlayers: [
-    //     {
-    //       name: "sdfghj",
-    //       credit: "9",
-    //       isConstant: true,
-    //       team: "teamB",
-    //     },
-    //   ],
-    //   min_credit: "0",
-    //   max_credit: "100",
-    //   team_size: "7",
-    //   game: "Handball",
-    //   teamBplayers: ["asd", "xcv", "lkjh", "sdfghj", "lkjhgf"],
-    //   teamAplayers: ["sa", "xcvb", "jhgf", "oiuy", "lkjhg"],
-    // };
-
-    // const arr = findCombinations(
-    //   saumit.forms,
-    //   saumit.conPlayers,
-    //   saumit.min_credit,
-    //   saumit.max_credit,
-    //   saumit.team_size,
-    //   saumit.teamAplayers,
-    //   saumit.teamBplayers,
-    //   saumit.game
-    // );
+    console.log({
+      forms,
+      conPlayers,
+      min_credit,
+      max_credit,
+      team_size,
+      game,
+      teamBplayers,
+      teamAplayers,
+    });
 
     const arr = findCombinations(
       forms,
@@ -386,33 +373,116 @@ function App() {
                 {form.formFields.map((field, fieldIndex) => (
                   <div key={fieldIndex} className="space-y-4">
                     <div className="flex space-x-4">
-                      <input
-                        type="text"
-                        className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        placeholder="name"
-                        value={field.name}
-                        onChange={(event) =>
-                          handleInputChangeName(formIndex, fieldIndex, event)
-                        }
-                      />
-                      <input
-                        type="text"
-                        placeholder="credit"
-                        className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        value={field.credit}
-                        onChange={(event) =>
-                          handleInputChangeCredit(formIndex, fieldIndex, event)
-                        }
-                      />
-                      <input
-                        type="text"
-                        placeholder="pts"
-                        className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        value={field.points}
-                        onChange={(event) =>
-                          handleInputChangePoints(formIndex, fieldIndex, event)
-                        }
-                      />
+                      <div className="space-y-4">
+                        <div className="flex space-x-4">
+                          <input
+                            type="text"
+                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            placeholder="name"
+                            value={field.name}
+                            onChange={(event) =>
+                              handleInputChangeName(
+                                formIndex,
+                                fieldIndex,
+                                event
+                              )
+                            }
+                            ref={nameRef}
+                            required
+                          />
+                          <input
+                            type="text"
+                            placeholder="credit"
+                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            value={field.credit}
+                            onChange={(event) =>
+                              handleInputChangeCredit(
+                                formIndex,
+                                fieldIndex,
+                                event
+                              )
+                            }
+                            ref={creditRef}
+                            required
+                          />
+                          <input
+                            type="text"
+                            placeholder="points"
+                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            value={field.points}
+                            onChange={(event) =>
+                              handleInputChangePoints(
+                                formIndex,
+                                fieldIndex,
+                                event
+                              )
+                            }
+                          />
+                        </div>
+                        <div className="flex space-x-4">
+                          <input
+                            type="text"
+                            placeholder="pts"
+                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            value={field.pts}
+                            onChange={(event) =>
+                              handleInputChangePts(formIndex, fieldIndex, event)
+                            }
+                          />
+                          <input
+                            type="text"
+                            placeholder="rebounce"
+                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            value={field.reb}
+                            onChange={(event) =>
+                              handleInputChangeRebounce(
+                                formIndex,
+                                fieldIndex,
+                                event
+                              )
+                            }
+                          />
+                          <input
+                            type="text"
+                            placeholder="assist"
+                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            value={field.ast}
+                            onChange={(event) =>
+                              handleInputChangeAssist(
+                                formIndex,
+                                fieldIndex,
+                                event
+                              )
+                            }
+                          />
+                          <input
+                            type="text"
+                            placeholder="steal"
+                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            value={field.stl}
+                            onChange={(event) =>
+                              handleInputChangeSteal(
+                                formIndex,
+                                fieldIndex,
+                                event
+                              )
+                            }
+                          />
+                          <input
+                            type="text"
+                            placeholder="block"
+                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            value={field.block}
+                            onChange={(event) =>
+                              handleInputChangeBlock(
+                                formIndex,
+                                fieldIndex,
+                                event
+                              )
+                            }
+                          />
+                        </div>
+                      </div>
                       <div className="flex items-center">
                         <input
                           type="checkbox"
@@ -450,6 +520,7 @@ function App() {
                             onChange={(event) =>
                               handleTeamChange(formIndex, fieldIndex, event)
                             }
+                            required
                           />
                           White
                         </label>
@@ -465,6 +536,7 @@ function App() {
                             onChange={(event) =>
                               handleTeamChange(formIndex, fieldIndex, event)
                             }
+                            required
                           />
                           Black
                         </label>
@@ -480,6 +552,32 @@ function App() {
                             }
                           />
                           Excluded
+                        </label>
+                      </div>
+                      <div className="space-x-1">
+                        <label className="font-regular text-sm sm:text-md text-gray-600 flex">
+                          <input
+                            type="checkbox"
+                            className="mr-1"
+                            checked={field.isCaptain}
+                            onChange={() =>
+                              handleIsCaptain(formIndex, fieldIndex)
+                            }
+                          />
+                          Captain
+                        </label>
+                      </div>
+                      <div className="space-x-1">
+                        <label className="font-regular text-sm sm:text-md text-gray-600 flex">
+                          <input
+                            type="checkbox"
+                            className="mr-1"
+                            checked={field.isViceCaptain}
+                            onChange={() =>
+                              handleIsViceCaptain(formIndex, fieldIndex)
+                            }
+                          />
+                          Vice Captain
                         </label>
                       </div>
                     </div>
@@ -599,6 +697,9 @@ function App() {
                             </div>
                             <div className="ml-2 text-sm">
                               <p>Points: {array[3]}</p>
+                            </div>
+                            <div className="ml-2 text-sm">
+                              <p>Average: {array[4]}</p>
                             </div>
                           </div>
                         </div>

@@ -37,42 +37,72 @@ export function findCombinations(
         comb.push(combi);
       }
     }
-    // console.log(comb);
+
     return comb;
   }
 
   const conPlayers = conPlayer.map(({ name }) => name);
-  //console.log(conPlayers);
 
   const excludedPlayers = excludedPlayer.map(({ name }) => name);
-  console.log(excludedPlayers);
+  // console.log(excludedPlayers);
 
   const groups = forms.map(({ formFields }) =>
-    formFields.map(({ name, credit, points }) => [
-      name,
-      parseFloat(credit),
-      parseFloat(points),
-    ])
+    formFields.map(
+      ({
+        name,
+        credit,
+        points,
+        pts,
+        reb,
+        ast,
+        stl,
+        block,
+        isCaptain,
+        isViceCaptain,
+      }) => [
+        name,
+        parseFloat(credit),
+        parseFloat(points),
+        parseFloat(
+          isCaptain
+            ? Math.round(pts) * 2
+            : isViceCaptain
+            ? Math.round(pts) * 1.5
+            : Math.round(pts)
+        ),
+        parseFloat(
+          isCaptain
+            ? Math.round(reb * 1.2) * 2
+            : isViceCaptain
+            ? Math.round(reb * 1.2) * 1.5
+            : Math.round(reb * 1.2)
+        ),
+        parseFloat(
+          isCaptain
+            ? Math.round(ast * 1.5) * 2
+            : isViceCaptain
+            ? Math.round(ast * 1.5) * 1.5
+            : Math.round(ast * 1.5)
+        ),
+        parseFloat(
+          isCaptain
+            ? Math.round(stl * 1 + block * 1) * 3 * 2
+            : isViceCaptain
+            ? Math.round(stl * 1 + block * 1) * 3 * 1.5
+            : Math.round(stl * 1 + block * 1) * 3
+        ),
+      ]
+    )
   );
+
+  // console.log(groups);
 
   const combination = select_players(groups);
 
   const group_members = forms.map(({ formFields }) =>
     formFields.reduce((acc, { name }) => acc.concat(name), [])
   );
-
-  // const points = forms.map(({ formFields }) =>
-  //   formFields.map(({ points }) => [parseFloat(points)])
-  // );
-
-  // console.log(points);
-
-  // let flattenedArray = points.flatMap((innerArray) => innerArray.flat());
-  // let sum = flattenedArray.reduce(
-  //   (accumulator, currentValue) => accumulator + currentValue
-  // );
-
-  // console.log(sum);
+  // console.log(group_members);
 
   let length = group_members.length;
   let pgCount = 0;
@@ -113,7 +143,6 @@ export function findCombinations(
         }
       }
     }
-
     if (flag === 1 && length === 5 && game === "Basketball") {
       for (let player of team) {
         if (group_members[0].includes(player)) {
@@ -157,6 +186,11 @@ export function findCombinations(
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
           comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
+          comb.reduce(
+            (average, player) =>
+              average + (player[3] + player[4] + player[5] + player[6]),
+            0
+          ),
         ]);
       }
     } else if (flag === 1 && length === 5 && game === "Volleyball") {
@@ -198,20 +232,22 @@ export function findCombinations(
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
           comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
+          comb.reduce(
+            (average, player) =>
+              average + (player[3] + player[4] + player[5] + player[6]),
+            0
+          ),
         ]);
       }
     } else if (flag === 1 && length === 4 && game === "Cricket") {
       for (let player of team) {
         if (group_members[0].includes(player)) {
           pgCount += 1;
-        }
-        if (group_members[1].includes(player)) {
+        } else if (group_members[1].includes(player)) {
           sgCount += 1;
-        }
-        if (group_members[2].includes(player)) {
+        } else if (group_members[2].includes(player)) {
           sfCount += 1;
-        }
-        if (group_members[3].includes(player)) {
+        } else if (group_members[3].includes(player)) {
           pfCount += 1;
         }
         if (teamAplayers.includes(player)) {
@@ -235,6 +271,11 @@ export function findCombinations(
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
           comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
+          comb.reduce(
+            (average, player) =>
+              average + (player[3] + player[4] + player[5] + player[6]),
+            0
+          ),
         ]);
       }
     } else if (
@@ -276,6 +317,11 @@ export function findCombinations(
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
           comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
+          comb.reduce(
+            (average, player) =>
+              average + (player[3] + player[4] + player[5] + player[6]),
+            0
+          ),
         ]);
       }
     } else if (flag === 1 && length === 3 && game === "Kabaddi") {
@@ -313,6 +359,11 @@ export function findCombinations(
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
           comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
+          comb.reduce(
+            (average, player) =>
+              average + (player[3] + player[4] + player[5] + player[6]),
+            0
+          ),
         ]);
       }
     } else if (flag === 1 && length === 3 && game === "Handball") {
@@ -346,6 +397,11 @@ export function findCombinations(
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
           comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
+          comb.reduce(
+            (average, player) =>
+              average + (player[3] + player[4] + player[5] + player[6]),
+            0
+          ),
         ]);
       }
     } else if (flag === 1 && length === 4 && game === "Baseball") {
@@ -385,6 +441,11 @@ export function findCombinations(
           [aCount, "-", bCount],
           comb.reduce((total, player) => total + player[1], 0),
           comb.reduce((totalPoints, player) => totalPoints + player[2], 0),
+          comb.reduce(
+            (average, player) =>
+              average + (player[3] + player[4] + player[5] + player[6]),
+            0
+          ),
         ]);
       }
     }
