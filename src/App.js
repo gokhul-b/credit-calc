@@ -17,11 +17,11 @@ function App() {
           isExcluded: false,
           isCaptain: false,
           isViceCaptain: false,
-          pts: 0,
-          reb: 0,
-          ast: 0,
-          stl: 0,
-          block: 0,
+          pts: "",
+          reb: "",
+          ast: "",
+          stl: "",
+          block: "",
         },
       ],
     },
@@ -46,11 +46,11 @@ function App() {
           isExcluded: false,
           isCaptain: false,
           isViceCaptain: false,
-          pts: 0,
-          reb: 0,
-          ast: 0,
-          stl: 0,
-          block: 0,
+          pts: "",
+          reb: "",
+          ast: "",
+          stl: "",
+          block: "",
         },
       ],
     });
@@ -94,11 +94,11 @@ function App() {
       isExcluded: false,
       isCaptain: false,
       isViceCaptain: false,
-      pts: 0,
-      reb: 0,
-      ast: 0,
-      stl: 0,
-      block: 0,
+      pts: "",
+      reb: "",
+      ast: "",
+      stl: "",
+      block: "",
     });
     setForms(updatedForms);
   };
@@ -406,7 +406,7 @@ function App() {
                             required
                           />
                           <input
-                            type="text"
+                            type="number"
                             placeholder="credit"
                             className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             value={field.credit}
@@ -421,7 +421,7 @@ function App() {
                             required
                           />
                           <input
-                            type="text"
+                            type="number"
                             placeholder="points"
                             className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             value={field.points}
@@ -433,21 +433,45 @@ function App() {
                               )
                             }
                           />
+                          <div className="flex items-center">
+                            <label className="font-regular text-sm sm:text-base text-gray-400 flex items-center">
+                              <input
+                                type="checkbox"
+                                className="mr-1.5 sm:w-4 sm:h-4"
+                                checked={field.isConstant}
+                                onChange={() =>
+                                  handleCheckboxChange(formIndex, fieldIndex)
+                                }
+                              />
+                              Constant
+                            </label>
+                          </div>
+                          <div className="flex items-center">
+                            <button
+                              type="button"
+                              className="min-w-fit text-white bg-[#f34141] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-full text-sm px-2 sm:px-4 sm:pb-1 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                              onClick={() =>
+                                handleremovePlayer(formIndex, fieldIndex)
+                              }
+                            >
+                              x
+                            </button>
+                          </div>
                         </div>
                         <div className="flex space-x-4">
                           <input
-                            type="text"
+                            type="number"
                             placeholder="pts"
-                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            className="form-control block w-full px-3 py-1.5 text-xs sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             value={field.pts}
                             onChange={(event) =>
                               handleInputChangePts(formIndex, fieldIndex, event)
                             }
                           />
                           <input
-                            type="text"
+                            type="number"
                             placeholder="rebounce"
-                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            className="form-control block w-full px-3 py-1.5 text-xs sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             value={field.reb}
                             onChange={(event) =>
                               handleInputChangeRebounce(
@@ -458,9 +482,9 @@ function App() {
                             }
                           />
                           <input
-                            type="text"
+                            type="number"
                             placeholder="assist"
-                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            className="form-control block w-full px-3 py-1.5 text-xs sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             value={field.ast}
                             onChange={(event) =>
                               handleInputChangeAssist(
@@ -471,9 +495,9 @@ function App() {
                             }
                           />
                           <input
-                            type="text"
+                            type="number"
                             placeholder="steal"
-                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            className="form-control block w-full px-3 py-1.5 text-xs sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             value={field.stl}
                             onChange={(event) =>
                               handleInputChangeSteal(
@@ -484,9 +508,9 @@ function App() {
                             }
                           />
                           <input
-                            type="text"
+                            type="number"
                             placeholder="block"
-                            className="form-control block w-full px-3 py-1.5 text-sm sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            className="form-control block w-full px-3 py-1.5 text-xs sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             value={field.block}
                             onChange={(event) =>
                               handleInputChangeBlock(
@@ -498,34 +522,10 @@ function App() {
                           />
                         </div>
                       </div>
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          checked={field.isConstant}
-                          onChange={() =>
-                            handleCheckboxChange(formIndex, fieldIndex)
-                          }
-                        />
-                        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 min-w-fit">
-                          CP
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <button
-                          type="button"
-                          className="min-w-fit text-white bg-[#f34141] hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-full text-sm px-2 sm:px-4 sm:pb-1 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                          onClick={() =>
-                            handleremovePlayer(formIndex, fieldIndex)
-                          }
-                        >
-                          x
-                        </button>
-                      </div>
                     </div>
-                    <div className="flex space-x-4 ml-2">
-                      <div className="space-x-1">
-                        <label className="font-regular text-sm sm:text-md text-gray-600 flex ">
+                    <div className="flex  space-x-2 sm:space-x-4 ml-2">
+                      <div>
+                        <label className="font-regular text-xs sm:text-sm text-gray-600 flex ">
                           <input
                             type="radio"
                             className="mr-1"
@@ -540,8 +540,8 @@ function App() {
                           White
                         </label>
                       </div>
-                      <div className="space-x-1">
-                        <label className="font-regular text-sm sm:text-md text-gray-600 flex">
+                      <div>
+                        <label className="font-regular text-xs sm:text-sm text-gray-600 flex">
                           <input
                             type="radio"
                             className="mr-1"
@@ -556,8 +556,8 @@ function App() {
                           Black
                         </label>
                       </div>
-                      <div className="space-x-1">
-                        <label className="font-regular text-sm sm:text-md text-gray-600 flex">
+                      <div>
+                        <label className="font-regular text-xs sm:text-sm text-gray-600 flex">
                           <input
                             type="checkbox"
                             className="mr-1"
@@ -569,8 +569,8 @@ function App() {
                           Excluded
                         </label>
                       </div>
-                      <div className="space-x-1">
-                        <label className="font-regular text-sm sm:text-md text-gray-600 flex">
+                      <div>
+                        <label className="font-regular text-xs sm:text-sm text-gray-600 flex">
                           <input
                             type="checkbox"
                             className="mr-1"
@@ -583,7 +583,7 @@ function App() {
                         </label>
                       </div>
                       <div className="space-x-1">
-                        <label className="font-regular text-sm sm:text-md text-gray-600 flex">
+                        <label className="font-regular text-xs sm:text-sm text-gray-600 flex">
                           <input
                             type="checkbox"
                             className="mr-1"
