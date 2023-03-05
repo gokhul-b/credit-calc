@@ -294,6 +294,21 @@ function App() {
     setResult(l);
   };
 
+  const sortListBasedOnAverage = () => {
+    const array = [...result];
+    const sort_List = array.sort((a, b) => b[4] - a[4]);
+    // eslint-disable-next-line array-callback-return
+    let l = sort_List.filter((r) => {
+      let s = r[1].join("");
+      if (s.includes(query)) {
+        return r;
+      } else {
+        setResult(sort_List);
+      }
+    });
+    setResult(l);
+  };
+
   const sortListBasedOnPoints = () => {
     const array = [...result];
     const sort_List = array.sort((a, b) => b[3] - a[3]);
@@ -674,6 +689,10 @@ function App() {
                   </button>
                   <button onClick={sortListBasedOnPoints} className="flex">
                     Points
+                    <p className="ml-1">&#9660;</p>
+                  </button>
+                  <button onClick={sortListBasedOnAverage} className="flex">
+                    Average
                     <p className="ml-1">&#9660;</p>
                   </button>
                 </div>
