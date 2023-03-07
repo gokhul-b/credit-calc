@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { findCombinations } from "./Combinations";
 
 function App() {
@@ -22,10 +22,12 @@ function App() {
           ast: "",
           stl: "",
           block: "",
+          total: 0,
         },
       ],
     },
   ]);
+
   const [min_credit, setMinCredit] = useState("");
   const [max_credit, setMaxCredit] = useState("");
   const [team_size, setTeamSize] = useState("");
@@ -33,6 +35,24 @@ function App() {
   const [isFilterEnabled, setIsFilterEnabled] = useState(false);
 
   //functions
+  const avgTotal = useCallback(() => {
+    forms.forEach((form) => {
+      form.formFields.forEach((field) => {
+        let sum = 0;
+        sum += parseInt(field.pts) || 0;
+        sum += parseInt(field.reb) * 1.2 || 0;
+        sum += parseInt(field.ast) * 1.5 || 0;
+        sum += parseInt(field.stl) * 3 || 0;
+        sum += parseInt(field.block) * 3 || 0;
+        field.total = sum; // Update the total property of the current formField
+      });
+    });
+    setForms([...forms]); // Update the forms state variable
+  }, [forms]);
+
+  useEffect(() => {
+    avgTotal();
+  }, [avgTotal]);
 
   const handleAddForm = () => {
     const updatedForms = [...forms];
@@ -385,6 +405,7 @@ function App() {
                     Group {formIndex + 1}
                   </label>
                 </div>
+
                 {form.formFields.map((field, fieldIndex) => (
                   <div key={fieldIndex} className="space-y-4">
                     <div className="flex space-x-4">
@@ -520,6 +541,14 @@ function App() {
                               )
                             }
                           />
+                          <div className="form-control block w-full px-3 py-1.5 text-xs sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+                            <p className="text-gray-400 text-xs sm:text-base">
+                              Avg ={" "}
+                              <span className="text-gray-700 text-xs sm:text-base">
+                                {field.total}
+                              </span>
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -682,7 +711,7 @@ function App() {
                     </button>
                   </div>
                 </div>
-                <div className="flex space-x-4 text-sm sm:text-base font-light mx-4">
+                <div className="flex space-x-4 text-xs sm:text-base font-light mx-4">
                   <button onClick={sortListBasedOnCredits} className="flex">
                     Credits
                     <p className="ml-1">&#9660;</p>
