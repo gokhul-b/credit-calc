@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef } from "react";
 import { findCombinations } from "./Combinations";
 
 function App() {
@@ -22,7 +22,8 @@ function App() {
           ast: "",
           stl: "",
           block: "",
-          total: 0,
+          total: "",
+          isSubstitute: false
         },
       ],
     },
@@ -34,25 +35,6 @@ function App() {
   const [game, setGame] = useState("");
   const [isFilterEnabled, setIsFilterEnabled] = useState(false);
 
-  //functions
-  const avgTotal = useCallback(() => {
-    forms.forEach((form) => {
-      form.formFields.forEach((field) => {
-        let sum = 0;
-        sum += parseInt(field.pts) || 0;
-        sum += parseInt(field.reb) * 1.2 || 0;
-        sum += parseInt(field.ast) * 1.5 || 0;
-        sum += parseInt(field.stl) * 3 || 0;
-        sum += parseInt(field.block) * 3 || 0;
-        field.total = sum; // Update the total property of the current formField
-      });
-    });
-    setForms([...forms]); // Update the forms state variable
-  }, [forms]);
-
-  useEffect(() => {
-    avgTotal();
-  }, [avgTotal]);
 
   const handleAddForm = () => {
     const updatedForms = [...forms];
@@ -62,6 +44,7 @@ function App() {
           name: "",
           credit: "",
           isConstant: false,
+          team: "",
           points: "",
           isExcluded: false,
           isCaptain: false,
@@ -71,6 +54,8 @@ function App() {
           ast: "",
           stl: "",
           block: "",
+          total: "",
+          isSubstitute: false
         },
       ],
     });
@@ -110,6 +95,7 @@ function App() {
       name: "",
       credit: "",
       isConstant: false,
+      team: "",
       points: "",
       isExcluded: false,
       isCaptain: false,
@@ -119,7 +105,9 @@ function App() {
       ast: "",
       stl: "",
       block: "",
-    });
+      total: "",
+      isSubstitute: false
+    },);
     setForms(updatedForms);
   };
 
@@ -215,6 +203,13 @@ function App() {
     setForms(updatedForms);
   };
 
+  const handleIsSub = (formIndex, fieldIndex) => {
+    const updatedForms = [...forms];
+    const formFields = updatedForms[formIndex].formFields;
+    formFields[fieldIndex].isSubstitute = !formFields[fieldIndex].isSubstitute;
+    setForms(updatedForms);
+  };
+
   const handleMinCreditChange = (event) => {
     setMinCredit(event.target.value);
   };
@@ -230,6 +225,16 @@ function App() {
   const handleMaxCreditChange = (event) => {
     setMaxCredit(event.target.value);
   };
+
+  function calculateTotal(pts, reb, ast, stl, blk) {
+    const ptsValue = parseFloat(pts) || 0;
+    const rebValue = parseFloat(reb) || 0;
+    const astValue = parseFloat(ast) || 0;
+    const stlValue = parseFloat(stl) || 0;
+    const blkValue = parseFloat(blk) || 0;
+  
+    return ptsValue + rebValue * 1.2 + astValue * 1.5 + stlValue * 3 + blkValue * 3;
+  }
 
   const nameRef = useRef(null);
   const creditRef = useRef(null);
@@ -263,6 +268,14 @@ function App() {
       return acc.concat(constantFields);
     }, []);
 
+    const subPlayers = forms
+      .map((form) =>
+        form.formFields
+          .filter((field) => field.isSubstitute)
+          .map((field) => field.name)
+      )
+      .flat();
+
     const teamAplayers = forms
       .map((form) =>
         form.formFields
@@ -279,17 +292,6 @@ function App() {
       )
       .flat();
 
-    console.log({
-      forms,
-      conPlayers,
-      min_credit,
-      max_credit,
-      team_size,
-      game,
-      teamBplayers,
-      teamAplayers,
-    });
-
     const arr = findCombinations(
       forms,
       conPlayers,
@@ -299,7 +301,8 @@ function App() {
       teamAplayers,
       teamBplayers,
       game,
-      excludedPlayers
+      excludedPlayers,
+      subPlayers
     );
 
     // eslint-disable-next-line array-callback-return
@@ -543,9 +546,9 @@ function App() {
                           />
                           <div className="form-control block w-full px-3 py-1.5 text-xs sm:text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                             <p className="text-gray-400 text-xs sm:text-base">
-                              Avg ={" "}
+                              
                               <span className="text-gray-700 text-xs sm:text-base">
-                                {field.total}
+                              {calculateTotal(field.pts, field.reb, field.ast, field.stl, field.block)}
                               </span>
                             </p>
                           </div>
@@ -622,6 +625,19 @@ function App() {
                             }
                           />
                           Vice Captain
+                        </label>
+                      </div>
+                      <div>
+                        <label className="font-regular text-xs sm:text-sm text-gray-600 flex">
+                          <input
+                            type="checkbox"
+                            className="mr-1"
+                            checked={field.isSubstitute}
+                            onChange={() =>
+                              handleIsSub(formIndex, fieldIndex)
+                            }
+                          />
+                          Substitute
                         </label>
                       </div>
                     </div>
@@ -739,6 +755,9 @@ function App() {
                           <div className="flex">
                             <div className="border border-[#40b511] bg-gray-100 rounded-lg px-3 mx-3 text-sm">
                               <p>{array[1]}</p>
+                            </div>
+                            <div className="pl-2 text-sm">
+                              <p>Sub: {array[5]}</p>
                             </div>
                             <div className="pl-2 text-sm">
                               <p>Credit: {array[2]}</p>

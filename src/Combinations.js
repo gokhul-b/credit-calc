@@ -7,7 +7,8 @@ export function findCombinations(
   teamAplayers,
   teamBplayers,
   game,
-  excludedPlayer
+  excludedPlayer,
+  subPlayers
 ) {
   function* combinations(arr, k) {
     for (let i = 0; i < arr.length; i++) {
@@ -105,14 +106,15 @@ export function findCombinations(
   // console.log(group_members);
 
   let length = group_members.length;
-  let pgCount = 0;
-  let sgCount = 0;
-  let sfCount = 0;
-  let pfCount = 0;
-  let cCount = 0;
-  let aCount = 0;
-  let bCount = 0;
-  let totTeams = 0;
+  var pgCount = 0;
+  var sgCount = 0;
+  var sfCount = 0;
+  var pfCount = 0;
+  var cCount = 0;
+  var aCount = 0;
+  var bCount = 0;
+  var totTeams = 0;
+  var subCount = 0;
   let teamWithRange = [];
 
   for (let comb of combination) {
@@ -124,15 +126,20 @@ export function findCombinations(
     cCount = 0;
     aCount = 0;
     bCount = 0;
+    subCount = 0
 
-    let flag = 0;
-    for (let conPlayer of conPlayers) {
-      if (team.includes(conPlayer)) {
-        flag = 1;
-      } else {
-        flag = 0;
-        break;
+    var flag = 0;
+    if(conPlayers.length > 0){
+      for (let conPlayer of conPlayers) {
+        if (team.includes(conPlayer)) {
+          flag = 1;
+        } else {
+          flag = 0;
+          break;
+        }
       }
+    }else{
+      flag = 1;
     }
 
     if (flag === 1) {
@@ -166,6 +173,9 @@ export function findCombinations(
         if (teamBplayers.includes(player)) {
           bCount += 1;
         }
+        if (subPlayers.includes(player)) {
+          subCount += 1;
+        }
       }
       if (
         pgCount > 0 &&
@@ -191,6 +201,7 @@ export function findCombinations(
               average + (player[3] + player[4] + player[5] + player[6]),
             0
           ),
+          subCount
         ]);
       }
     } else if (flag === 1 && length === 5 && game === "Volleyball") {
@@ -216,6 +227,9 @@ export function findCombinations(
         if (teamBplayers.includes(player)) {
           bCount += 1;
         }
+        if (subPlayers.includes(player)) {
+          subCount += 1;
+        }
       }
       if (
         pgCount === 1 &&
@@ -237,6 +251,7 @@ export function findCombinations(
               average + (player[3] + player[4] + player[5] + player[6]),
             0
           ),
+          subCount
         ]);
       }
     } else if (flag === 1 && length === 4 && game === "Cricket") {
@@ -255,6 +270,9 @@ export function findCombinations(
         }
         if (teamBplayers.includes(player)) {
           bCount += 1;
+        }
+        if (subPlayers.includes(player)) {
+          subCount += 1;
         }
       }
       if (
@@ -276,6 +294,7 @@ export function findCombinations(
               average + (player[3] + player[4] + player[5] + player[6]),
             0
           ),
+          subCount
         ]);
       }
     } else if (
@@ -302,6 +321,9 @@ export function findCombinations(
         if (teamBplayers.includes(player)) {
           bCount += 1;
         }
+        if (subPlayers.includes(player)) {
+          subCount += 1;
+        }
       }
       if (
         pgCount === 1 &&
@@ -322,6 +344,7 @@ export function findCombinations(
               average + (player[3] + player[4] + player[5] + player[6]),
             0
           ),
+          subCount
         ]);
       }
     } else if (flag === 1 && length === 3 && game === "Kabaddi") {
@@ -341,6 +364,9 @@ export function findCombinations(
         }
         if (teamBplayers.includes(player)) {
           bCount += 1;
+        }
+        if (subPlayers.includes(player)) {
+          subCount += 1;
         }
       }
       if (
@@ -364,6 +390,7 @@ export function findCombinations(
               average + (player[3] + player[4] + player[5] + player[6]),
             0
           ),
+          subCount
         ]);
       }
     } else if (flag === 1 && length === 3 && game === "Handball") {
@@ -382,6 +409,9 @@ export function findCombinations(
         }
         if (teamBplayers.includes(player)) {
           bCount += 1;
+        }
+        if (subPlayers.includes(player)) {
+          subCount += 1;
         }
       }
       if (
@@ -402,6 +432,7 @@ export function findCombinations(
               average + (player[3] + player[4] + player[5] + player[6]),
             0
           ),
+          subCount
         ]);
       }
     } else if (flag === 1 && length === 4 && game === "Baseball") {
@@ -423,6 +454,9 @@ export function findCombinations(
         }
         if (teamBplayers.includes(player)) {
           bCount += 1;
+        }
+        if (subPlayers.includes(player)) {
+          subCount += 1;
         }
       }
       if (
@@ -446,6 +480,7 @@ export function findCombinations(
               average + (player[3] + player[4] + player[5] + player[6]),
             0
           ),
+          subCount
         ]);
       }
     }
