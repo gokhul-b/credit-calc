@@ -66,7 +66,7 @@ function App() {
     const updatedForms = forms.map((group) => {
       const updatedFields = group.formFields.map((field) => {
         if (field.points) {
-          return { ...field, points: "" };
+          return { ...field, points: "", pts: "", reb: "", ast: "", stl: "", block: "", total: "" };
         }
         return field;
       });
